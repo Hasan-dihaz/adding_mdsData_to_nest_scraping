@@ -1,17 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import {
-  Entity,
-  Column,
-  // PrimaryGeneratedColumn,
-  PrimaryColumn,
-  // BeforeInsert,
-  // CreateDateColumn,
-} from 'typeorm';
+// import {
+//   Entity,
+//   Column,
+//   PrimaryGeneratedColumn,
+//   PrimaryColumn,
+//   // BeforeInsert,
+//   // CreateDateColumn,
+// } from 'typeorm';
 
 export type TrdDocument = trd & Document;
 
-@Entity()
+// @Entity()
 @Schema()
 export class trd {
   // TRD_SNO: {
@@ -20,25 +20,25 @@ export class trd {
   //   unique: true,
   // },
 
-  @Column()
+  // @Column()
   @Prop({ type: Date })
   TRD_SNO: Date;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   TRD_TOTAL_TRADES: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   TRD_TOTAL_VOLUME: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   TRD_TOTAL_VALUE: number;
 
-  @PrimaryColumn()
-  @Prop({ type: Date })
-  TRD_LM_DATE_TIME: Date;
+  // @PrimaryColumn()
+  // @Prop({ type: Date })
+  // TRD_LM_DATE_TIME: Date;
 }
 
 export const TrdSchema = SchemaFactory.createForClass(trd);

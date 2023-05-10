@@ -6,7 +6,7 @@ import CompanyModule from './dse_data_scraping/company.module';
 import MdsDataModule from './data_migration/mdsdata/mdsdata.module';
 
 @Module({
-  imports: [CompanyModule, MdsDataModule, ScheduleModule.forRoot()],
+  imports: [MdsDataModule, CompanyModule, ScheduleModule.forRoot()],
   controllers: [AppController],
   providers: [AppService],
 })

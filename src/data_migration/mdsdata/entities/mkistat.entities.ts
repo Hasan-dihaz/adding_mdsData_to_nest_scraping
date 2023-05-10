@@ -1,96 +1,96 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import {
-  Entity,
-  Column,
-  // PrimaryGeneratedColumn,
-  PrimaryColumn,
-  // BeforeInsert,
-  // CreateDateColumn,
-} from 'typeorm';
+// import {
+//   Entity,
+//   Column,
+//   // PrimaryGeneratedColumn,
+//   PrimaryColumn,
+//   // BeforeInsert,
+//   // CreateDateColumn,
+// } from 'typeorm';
 
 export type MkistatDocument = mkistat & Document;
 
-@Entity()
+// @Entity()
 @Schema()
 export class mkistat {
-  @PrimaryColumn()
+  // @PrimaryColumn()
   @Prop({ type: String })
   MKISTAT_INSTRUMENT_CODE: string;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_INSTRUMENT_NUMBER: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: String })
   MKISTAT_QUOTE_BASES: string;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_OPEN_PRICE: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_PUB_LAST_TRADED_PRICE: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_SPOT_LAST_TRADED_PRICE: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_HIGH_PRICE: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_LOW_PRICE: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_CLOSE_PRICE: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_YDAY_CLOSE_PRICE: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_TOTAL_TRADES: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_TOTAL_VOLUME: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_TOTAL_VALUE: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_PUBLIC_TOTAL_TRADES: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_PUBLIC_TOTAL_VOLUME: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_PUBLIC_TOTAL_VALUE: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_SPOT_TOTAL_TRADES: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_SPOT_TOTAL_VOLUME: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   MKISTAT_SPOT_TOTAL_VALUE: number;
 
-  @PrimaryColumn()
+  // @PrimaryColumn()
   @Prop({ type: Date })
   MKISTAT_LM_DATE_TIME: Date;
 }

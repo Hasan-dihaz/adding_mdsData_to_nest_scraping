@@ -3,12 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { idx, IdxSchema } from './entities/idx.entities';
-import { trd, TrdSchema } from './entities/trd.entities';
-import { mkistat, MkistatSchema } from './entities/mkistat.entities';
-import { man, ManSchema } from './entities/man.entities';
+// import { trd, TrdSchema } from './entities/trd.entities';
+// import { mkistat, MkistatSchema } from './entities/mkistat.entities';
+// import { man, ManSchema } from './entities/man.entities';
 
 import { Main } from '../main';
-import { TrdService } from './services/mdsdata.service';
+import { IdxService } from './services/mdsdata.service';
 
 @Module({
   imports: [
@@ -19,20 +19,23 @@ import { TrdService } from './services/mdsdata.service';
       username: 'root',
       //   password: 'password',
       database: 'mdsdata',
-      entities: [idx, man, trd, mkistat],
+      // entities: [],
+      // entities: [__dirname + '/../**/*.entities.{js,ts}'],
+      // entities: [idx, man, trd, mkistat],
       synchronize: true,
       //!if enabled every time run the app will try to create table using registerd entity (runs migration automatically).
     }),
-    TypeOrmModule.forFeature([idx, man, trd, mkistat]), //to use typeORM Repository on entities
+    // TypeOrmModule.forFeature([idx]), //to use typeORM Repository on entities
+    // TypeOrmModule.forFeature([idx, man, trd, mkistat]), //to use typeORM Repository on entities
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/book_nest'),
     MongooseModule.forFeature([
       { name: idx.name, schema: IdxSchema },
-      { name: trd.name, schema: TrdSchema },
-      { name: mkistat.name, schema: MkistatSchema },
-      { name: man.name, schema: ManSchema },
+      // { name: trd.name, schema: TrdSchema },
+      // { name: mkistat.name, schema: MkistatSchema },
+      // { name: man.name, schema: ManSchema },
     ]),
   ],
   controllers: [],
-  providers: [Main, TrdService],
+  providers: [Main, IdxService],
 })
 export default class MdsDataModule {}

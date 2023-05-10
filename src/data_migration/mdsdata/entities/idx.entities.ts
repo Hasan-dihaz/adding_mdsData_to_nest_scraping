@@ -1,38 +1,40 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import {
-  Entity,
-  Column,
-  // PrimaryGeneratedColumn,
-  PrimaryColumn,
-  // BeforeInsert,
-  // CreateDateColumn,
-} from 'typeorm';
+// import {
+//   Entity,
+//   Column,
+//   // PrimaryGeneratedColumn,
+//   PrimaryColumn,
+//   // BeforeInsert,
+//   // CreateDateColumn,
+//   Index,
+// } from 'typeorm';
 
 export type IdxDocument = idx & Document;
 
-@Entity()
+// @Entity()
+// @Index(['IDX_INDEX_ID', 'IDX_DATE_TIME'], { unique: true })
 @Schema()
 export class idx {
-  @PrimaryColumn()
+  // @PrimaryColumn()
   @Prop({ type: String })
   IDX_INDEX_ID: string;
 
-  @PrimaryColumn()
-  @Prop({ type: Date })
-  IDX_DATE_TIME: Date;
+  // @PrimaryColumn()
+  @Prop({ type: String })
+  IDX_DATE_TIME: string;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   IDX_CAPITAL_VALUE: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
   IDX_DEVIATION: number;
 
-  @Column()
+  // @Column()
   @Prop({ type: Number })
-  lDX_PERCENTAGE_DEVIATION: number;
+  IDX_PERCENTAGE_DEVIATION: number;
   //In mysql database it is written lDX instead of IDX;
 }
 

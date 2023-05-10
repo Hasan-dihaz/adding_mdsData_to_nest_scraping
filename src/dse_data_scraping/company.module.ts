@@ -28,6 +28,7 @@ import { Circuit_breaks } from './entities/circuitBreaker.entities';
       port: 3306,
       username: 'root',
       //   password: 'password',
+      // database: 'dse_scraped_data',
       database: 'dse_scraped_data',
       entities: [Companies, Price_earnings, Circuit_breaks],
       synchronize: true,
