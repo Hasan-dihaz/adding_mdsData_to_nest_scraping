@@ -39,6 +39,6 @@ export class idx {
 }
 
 export const IdxSchema = SchemaFactory.createForClass(idx);
-// idxSchema.index({ IDX_INDEX_ID: 1, IDX_DATE_TIME: 1 }, { unique: true });
+IdxSchema.index({ IDX_INDEX_ID: 1, IDX_DATE_TIME: 1 }, { unique: true });
 // export default mongoose.models.idx_md || mongoose.model('idx_md', idxSchema);
 // // export default db.model('idx', idxSchema);

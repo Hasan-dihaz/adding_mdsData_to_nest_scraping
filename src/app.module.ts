@@ -4,9 +4,29 @@ import { AppService } from './app.service';
 import { ScheduleModule } from '@nestjs/schedule';
 import CompanyModule from './dse_data_scraping/company.module';
 import MdsDataModule from './data_migration/mdsdata/mdsdata.module';
+import { ConfigModule } from '@nestjs/config';
+
+// import { TypeOrmModule } from '@nestjs/typeorm';
+// import { db1Config } from './data_migration/mdsdata/Unsued/dbconfig/db1.config';
+// import { Db1Repository } from './data_migration/mdsdata/Unsued/repositories/db1.repository';
+// import { Db2Repository } from './data_migration/mdsdata/Unsued/repositories/db2.repository';
 
 @Module({
-  imports: [MdsDataModule, CompanyModule, ScheduleModule.forRoot()],
+  imports: [
+    MdsDataModule,
+    CompanyModule,
+    ScheduleModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: ['.env'],
+      isGlobal: true,
+    }),
+  ],
+  // imports: [
+  //   TypeOrmModule.forRoot(db1Config),
+  //   ,
+  //   CompanyModule,
+  //   ScheduleModule.forRoot(),
+  // ],
   controllers: [AppController],
   providers: [AppService],
 })

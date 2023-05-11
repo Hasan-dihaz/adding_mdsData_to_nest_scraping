@@ -33,9 +33,9 @@ export class man {
 
 export const ManSchema = SchemaFactory.createForClass(man);
 
-// manSchema.index(
-//   { MAN_ANNOUNCEMENT_DATE_TIME: 1, MAN_ANNOUNCEMENT: 1 },
-//   { unique: true },
-// );
+ManSchema.index(
+  { MAN_ANNOUNCEMENT_DATE_TIME: 1, MAN_ANNOUNCEMENT: 1 },
+  { unique: true },
+);
 // export default mongoose.models.man_md || mongoose.model('man_md', manSchema);
 // // module.exports= mongoose.model('trd', trdSchema);

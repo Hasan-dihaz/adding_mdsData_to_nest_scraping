@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+// import { TypeOrmModule } from '@nestjs/typeorm';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { idx, IdxSchema } from './entities/idx.entities';
@@ -8,24 +8,29 @@ import { idx, IdxSchema } from './entities/idx.entities';
 // import { man, ManSchema } from './entities/man.entities';
 
 import { Main } from '../main';
-import { IdxService } from './services/mdsdata.service';
+import { IdxService } from './services/Unused/mdsdata.service';
+
+// import { db1Config } from './Unsued/dbconfig/db1.config';
+import { Db1Repository } from './Unsued/repositories/db1.repository';
+import { Db2Repository } from './Unsued/repositories/db2.repository';
+
+import { MysqlService } from './services/mdsdata.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      //   password: 'password',
-      database: 'mdsdata',
-      // entities: [],
-      // entities: [__dirname + '/../**/*.entities.{js,ts}'],
-      // entities: [idx, man, trd, mkistat],
-      synchronize: true,
-      //!if enabled every time run the app will try to create table using registerd entity (runs migration automatically).
-    }),
-    // TypeOrmModule.forFeature([idx]), //to use typeORM Repository on entities
+    // TypeOrmModule.forRoot(),
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql',
+    //   host: 'localhost',
+    //   port: 3306,
+    //   username: 'root',
+    //   //   password: 'password',
+    //   database: 'mdsdata',
+    //   // entities: [__dirname + '/../**/*.entities.{js,ts}'],
+    //   // entities: [idx, man, trd, mkistat],
+    //   synchronize: true,
+    //   //!if enabled every time run the app will try to create table using registerd entity (runs migration automatically).
+    // }),
     // TypeOrmModule.forFeature([idx, man, trd, mkistat]), //to use typeORM Repository on entities
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/book_nest'),
     MongooseModule.forFeature([
@@ -36,6 +41,6 @@ import { IdxService } from './services/mdsdata.service';
     ]),
   ],
   controllers: [],
-  providers: [Main, IdxService],
+  providers: [Main, IdxService, MysqlService, Db1Repository, Db2Repository],
 })
 export default class MdsDataModule {}

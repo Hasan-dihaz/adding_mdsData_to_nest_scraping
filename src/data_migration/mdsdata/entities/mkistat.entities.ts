@@ -97,10 +97,10 @@ export class mkistat {
 
 export const MkistatSchema = SchemaFactory.createForClass(mkistat);
 
-// mkistatSchema.index(
-//   { MKISTAT_LM_DATE_TIME: 1, MKISTAT_INSTRUMENT_CODE: 1 },
-//   { unique: true },
-// ); //Making compund Unique Key...!!!
+MkistatSchema.index(
+  { MKISTAT_LM_DATE_TIME: 1, MKISTAT_INSTRUMENT_CODE: 1 },
+  { unique: true },
+); //Making compund Unique Key...!!!
 
 // export default mongoose.models.mkistat_md ||
 //   mongoose.model('mkistat_md', mkistatSchema);
