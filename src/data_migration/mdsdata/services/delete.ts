@@ -1,48 +1,19 @@
-const mySqlTables = ['mkistat', 'idx', 'man', 'trd'];
+// export class LastDataService {
 
-mySqlTables.forEach(async (element) => {
-  if (
-    element == 'mkistat' ||
-    element == 'idx' ||
-    element == 'man' ||
-    element == 'trd'
-  ) {
-    const table = element;
-    let model;
+//  recursivePromise(n) {
+//   return new Promise((resolve, reject) => {
+//     if (n <= 0) {
+//       reject('Invalid argument');
+//     } else if (n === 1) {
+//       resolve(1);
+//     } else {
+//       this.recursivePromise(n - 1)
+//         .then((result) => resolve(n * result))
+//         .catch((err) => reject(err));
+//     }
+//   });
+// }
 
-    try {
-      if (table == 'idx') {
-        model = this.idxModel;
-      } else if (table == 'man') {
-        model = this.manModel;
-      } else if (table == 'mkistat') {
-        model = this.mkistatModel;
-      } else if (table == 'trd') {
-        model = this.trdModel;
-      } else {
-        throw new Error('No model found');
-      }
-      const [rows, fields] = connection.execute(`SELECT * FROM ${table}`);
+// recursivePromise(10);
 
-      rows.then(async (results) => {
-        if (Object.keys(results).length != 0) {
-          //Object.keys(results)... converts the result into an array....since...length is a method of array.
-
-          console.time(`Writing_Time_to..${table}`);
-          try {
-            await model.insertMany(results, {
-              ordered: false,
-            });
-          } catch (error) {
-            console.log('Error');
-          }
-          console.timeEnd(`Writing_Time_to..${table}`);
-        } else {
-          console.log('Task Completed...For', table);
-        }
-      });
-    } catch (error) {
-      console.log('got Error');
-    }
-  }
-});
+// }
