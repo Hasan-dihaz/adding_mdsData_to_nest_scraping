@@ -11,7 +11,7 @@ export class Main {
   constructor(private readonly idxService: MysqlService) {}
   //Start the browser and create a browser instance
   // @Cron(CronExpression.EVERY_5_MINUTES)
-  @Cron(CronExpression.EVERY_MINUTE)
+  // @Cron(CronExpression.EVERY_MINUTE)
   // @Cron('*/2 * * * *') // for every 2 minutes
   async func() {
     console.log('Cron Started');

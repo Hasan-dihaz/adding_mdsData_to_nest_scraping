@@ -1,15 +1,21 @@
 // company.service.ts
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Circuit_breaks } from '../entities/circuitBreaker.entities';
+// import { InjectRepository } from '@nestjs/typeorm';
+// import { Repository } from 'typeorm';
 import { CreateCircuitBreakerDto } from '../dto/circuitBreaker.dto';
+
+import {
+  Circuit_breaks,
+  Circuit_breaksDocument,
+} from '../entities/circuitBreaker.entities';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class CircuitBreakerService {
   constructor(
-    @InjectRepository(Circuit_breaks)
-    private readonly circuitBreakerRepository: Repository<Circuit_breaks>,
+    @InjectModel('Circuit_breaks')
+    private circuit_breaksModel: Model<Circuit_breaksDocument>,
   ) {}
 
   async upsertCircuitBreakerEntity(
@@ -44,39 +50,50 @@ export class CircuitBreakerService {
       circuitBreaker.upperLimit = upperLimit;
       circuitBreaker.floorPriceBlockMarket = floorPriceBlockMarket;
 
-      const queryBuilder = this.circuitBreakerRepository
-        .createQueryBuilder()
-        .insert()
-        .into(Circuit_breaks)
-        .values(circuitBreaker)
-        .orUpdate(
-          [
-            'breaker',
-            'tickSize',
-            'openAdjPrice',
-            'floorPrice',
-            'lowerLimit',
-            'upperLimit',
-            'floorPriceBlockMarket',
-            'updated_at',
-          ],
-          // ['externalId'],
-          // {
-          //   skipUpdateIfNoValuesChanged: true,
-          //   // indexPredicate: 'date > 2020-01-01',
-          // },
-        );
-      // .orUpdate([
-      //   'breaker',
-      //   'tickSize',
-      //   'openAdjPrice',
-      //   'floorPrice',
-      //   'lowerLimit',
-      //   'upperLimit',
-      //   'floorPriceBlockMakret',
-      //   // 'updated_at',
-      // ]);
-      await queryBuilder.execute();
+      //!==================================
+
+      try {
+        await this.circuit_breaksModel.insertMany(circuitBreaker, {
+          ordered: false,
+        });
+      } catch (error) {
+        console.log('Error');
+      }
+      //!==================================
+
+      //   const queryBuilder = this.circuitBreakerRepository
+      //     .createQueryBuilder()
+      //     .insert()
+      //     .into(Circuit_breaks)
+      //     .values(circuitBreaker)
+      //     .orUpdate(
+      //       [
+      //         'breaker',
+      //         'tickSize',
+      //         'openAdjPrice',
+      //         'floorPrice',
+      //         'lowerLimit',
+      //         'upperLimit',
+      //         'floorPriceBlockMarket',
+      //         'updated_at',
+      //       ],
+      //       // ['externalId'],
+      //       // {
+      //       //   skipUpdateIfNoValuesChanged: true,
+      //       //   // indexPredicate: 'date > 2020-01-01',
+      //       // },
+      //     );
+      //   // .orUpdate([
+      //   //   'breaker',
+      //   //   'tickSize',
+      //   //   'openAdjPrice',
+      //   //   'floorPrice',
+      //   //   'lowerLimit',
+      //   //   'upperLimit',
+      //   //   'floorPriceBlockMakret',
+      //   //   // 'updated_at',
+      //   // ]);
+      //   await queryBuilder.execute();
     }
   }
 }

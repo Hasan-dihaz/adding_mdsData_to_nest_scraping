@@ -1,57 +1,82 @@
-import {
-  Entity,
-  Column,
-  // PrimaryGeneratedColumn,
-  PrimaryColumn,
-  BeforeInsert,
-  // CreateDateColumn,
-} from 'typeorm';
+// import {
+//   Entity,
+//   Column,
+//   // PrimaryGeneratedColumn,
+//   PrimaryColumn,
+//   BeforeInsert,
+//   // CreateDateColumn,
+// } from 'typeorm';
 
-@Entity()
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
+
+export type Price_earningsDocument = Price_earnings & Document;
+
+// @Entity()
+@Schema()
 export class Price_earnings {
-  @Column()
-  @PrimaryColumn()
+  @Prop({ type: String })
+  // @Column()
+  // @PrimaryColumn()
   company_code: string; //!==============
 
-  @Column({ length: 100 })
+  @Prop({ type: String })
+  // @Column({ length: 100 })
   close_price: string;
 
-  @Column()
+  @Prop({ type: String })
+  // @Column()
   // @PrimaryColumn()
   ycp: string;
 
-  @Column({ nullable: true })
+  @Prop({ type: String })
+  // @Column({ nullable: true })
   pe_1: string;
 
-  @Column({ nullable: true }) //, default: null
+  @Prop({ type: String })
+  // @Column({ nullable: true }) //, default: null
   pe_2: string;
 
-  @Column({ nullable: true })
+  @Prop({ type: String })
+  // @Column({ nullable: true })
   pe_3: string;
 
-  @Column({ nullable: true })
+  @Prop({ type: String })
+  // @Column({ nullable: true })
   pe_4: string;
 
-  @Column({ nullable: true })
+  @Prop({ type: String })
+  // @Column({ nullable: true })
   pe_5: string;
 
-  @Column({ nullable: true })
+  @Prop({ type: String })
+  // @Column({ nullable: true })
   pe_6: string;
 
   // @Column({ type: 'date' })   // all types are working here
   // @CreateDateColumn()
 
-  @Column({ primary: true, type: 'date' })
+  @Prop({ type: Date, default: Date.now })
+  // @Column({ primary: true, type: 'date' })
   // @PrimaryColumn({ type: 'date' })
   created_at: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Prop({ type: Date, default: Date.now })
+  // @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   // @PrimaryColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updated_at: Date;
+  updated_at: Date; //! not tested
 
-  @BeforeInsert()
-  setPrimaryKey() {
-    // this.created_at = new Date().toISOString().split('T')[0];
-    this.created_at = new Date();
-  }
+  // @BeforeInsert()
+  // setPrimaryKey() {
+  //   // this.created_at = new Date().toISOString().split('T')[0];
+  //   this.created_at = new Date();
+  // }
 }
+
+export const Price_earningsSchema =
+  SchemaFactory.createForClass(Price_earnings);
+
+Price_earningsSchema.index(
+  { created_at: 1, company_code: 1 },
+  { unique: true },
+); //Making compund Unique Key...!!!

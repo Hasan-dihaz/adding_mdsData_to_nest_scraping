@@ -1,15 +1,21 @@
 // company.service.ts
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Price_earnings } from '../entities/pe.entities';
+// import { InjectRepository } from '@nestjs/typeorm';
+// import { Repository } from 'typeorm';
 import { CreatePeDto } from '../dto/pe.dto';
+
+import {
+  Price_earnings,
+  Price_earningsDocument,
+} from '../entities/pe.entities';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class PeService {
   constructor(
-    @InjectRepository(Price_earnings)
-    private readonly peRepository: Repository<Price_earnings>,
+    @InjectModel('Price_earnings')
+    private price_earningsModel: Model<Price_earningsDocument>,
   ) {}
 
   //!===============================================
@@ -33,7 +39,7 @@ export class PeService {
         pe_4,
         pe_5,
         pe_6,
-        created_at,
+        // created_at,
         // date,
       } = createPeDto;
 
@@ -48,46 +54,57 @@ export class PeService {
       pe.pe_4 = pe_4;
       pe.pe_5 = pe_5;
       pe.pe_6 = pe_6;
-      pe.created_at = created_at;
+      // pe.created_at = created_at;
 
-      const queryBuilder = this.peRepository
-        .createQueryBuilder()
-        .insert()
-        .into(Price_earnings)
-        .values(pe)
-        .orUpdate(
-          [
-            'company_code',
-            'close_price',
-            'ycp',
-            'pe_1',
-            'pe_2',
-            'pe_3',
-            'pe_4',
-            'pe_5',
-            'pe_6',
-            'updated_at',
-            'created_at',
-          ],
-          // [
-          //   // 'company_code',
-          //   // 'close_price',
-          //   // 'ycp',
-          //   // 'pe_1',
-          //   // 'pe_2',
-          //   // 'pe_3',
-          //   // 'pe_4',
-          //   // 'pe_5',
-          //   // 'pe_6',
-          //   // 'created_at',
-          // ],
-          // {
-          //   skipUpdateIfNoValuesChanged: true,
-          //   // indexPredicate: 'date > 2020-01-01',
-          // },
-        );
+      //!==================================
 
-      await queryBuilder.execute();
+      try {
+        await this.price_earningsModel.insertMany(pe, {
+          ordered: false,
+        });
+      } catch (error) {
+        console.log('Error');
+      }
+      //!==================================
+
+      // const queryBuilder = this.peRepository
+      //   .createQueryBuilder()
+      //   .insert()
+      //   .into(Price_earnings)
+      //   .values(pe)
+      //   .orUpdate(
+      //     [
+      //       'company_code',
+      //       'close_price',
+      //       'ycp',
+      //       'pe_1',
+      //       'pe_2',
+      //       'pe_3',
+      //       'pe_4',
+      //       'pe_5',
+      //       'pe_6',
+      //       'updated_at',
+      //       'created_at',
+      //     ],
+      //     // [
+      //     //   // 'company_code',
+      //     //   // 'close_price',
+      //     //   // 'ycp',
+      //     //   // 'pe_1',
+      //     //   // 'pe_2',
+      //     //   // 'pe_3',
+      //     //   // 'pe_4',
+      //     //   // 'pe_5',
+      //     //   // 'pe_6',
+      //     //   // 'created_at',
+      //     // ],
+      //     // {
+      //     //   skipUpdateIfNoValuesChanged: true,
+      //     //   // indexPredicate: 'date > 2020-01-01',
+      //     // },
+      //   );
+
+      // await queryBuilder.execute();
 
       // const upsertedEntity = await this.peRepository.findOneOrFail({
       //   where: { company_code: company_code },

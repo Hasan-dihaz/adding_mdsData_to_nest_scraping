@@ -1,20 +1,21 @@
 // company.service.ts
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Companies } from '../entities/company.entities';
+// import { InjectRepository } from '@nestjs/typeorm';
+// import { Repository } from 'typeorm';
 import { CreateCompanyDto } from '../dto/company.dto';
+
+import { Companies, CompaniesDocument } from '../entities/company.entities';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class CompanyService {
   constructor(
-    @InjectRepository(Companies)
-    private readonly companyRepository: Repository<Companies>,
+    @InjectModel('Companies')
+    private companiesModel: Model<CompaniesDocument>,
   ) {}
 
-  async upsertCompanyEntity(
-    createCompanyDto: CreateCompanyDto,
-  ): Promise<Companies> {
+  async upsertCompanyEntity(createCompanyDto: CreateCompanyDto): Promise<void> {
     const {
       code,
       name,
@@ -77,46 +78,57 @@ export class CompanyService {
     company.eps_share = eps_share;
     // company.created_at = date;
 
-    const queryBuilder = this.companyRepository
-      .createQueryBuilder()
-      .insert()
-      .into(Companies)
-      .values(company)
-      .orUpdate([
-        'name',
-        'last_agm',
-        'market_capitalization_mn',
-        'authorized_capital_mn',
-        'paidup_capital_mn',
-        'type_of_instrument',
-        'total_outstanding_share_mn',
-        'face_par_value',
-        'sector',
-        'cash_dividend',
-        'dividend_yield_percentage',
-        'bonus_issued_stock_dividend',
-        'pe',
-        'eps',
-        'listing_since',
-        'category',
-        'sponsor_director',
-        'govt',
-        'institute',
-        '_foreign',
-        'public',
-        'address',
-        'phone',
-        'email',
-        'eps_share',
-        'updated_at',
-      ]);
+    //!==================================
 
-    await queryBuilder.execute();
+    try {
+      await this.companiesModel.insertMany(company, {
+        ordered: false,
+      });
+    } catch (error) {
+      console.log('Error');
+    }
+    //!==================================
 
-    const upsertedEntity = await this.companyRepository.findOneOrFail({
-      where: { code: code },
-    });
+    // const queryBuilder = this.companyRepository
+    //   .createQueryBuilder()
+    //   .insert()
+    //   .into(Companies)
+    //   .values(company)
+    //   .orUpdate([
+    //     'name',
+    //     'last_agm',
+    //     'market_capitalization_mn',
+    //     'authorized_capital_mn',
+    //     'paidup_capital_mn',
+    //     'type_of_instrument',
+    //     'total_outstanding_share_mn',
+    //     'face_par_value',
+    //     'sector',
+    //     'cash_dividend',
+    //     'dividend_yield_percentage',
+    //     'bonus_issued_stock_dividend',
+    //     'pe',
+    //     'eps',
+    //     'listing_since',
+    //     'category',
+    //     'sponsor_director',
+    //     'govt',
+    //     'institute',
+    //     '_foreign',
+    //     'public',
+    //     'address',
+    //     'phone',
+    //     'email',
+    //     'eps_share',
+    //     'updated_at',
+    //   ]);
 
-    return upsertedEntity;
+    // await queryBuilder.execute();
+
+    // const upsertedEntity = await this.companyRepository.findOneOrFail({
+    //   where: { code: code },
+    // });
+
+    // return upsertedEntity;
   }
 }

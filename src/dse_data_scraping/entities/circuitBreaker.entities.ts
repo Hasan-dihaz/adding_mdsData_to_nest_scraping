@@ -1,48 +1,50 @@
-import {
-  Entity,
-  Column,
-  // PrimaryGeneratedColumn,
-  PrimaryColumn,
-  BeforeInsert,
-  // CreateDateColumn,
-} from 'typeorm';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
 
-@Entity()
+export type Circuit_breaksDocument = Circuit_breaks & Document;
+
+@Schema()
 export class Circuit_breaks {
-  @PrimaryColumn()
+  // @PrimaryColumn()
   trade_code: string;
 
-  @Column()
+  @Prop({ type: String })
   breaker: string;
 
-  @Column()
+  @Prop({ type: String })
   tickSize: string;
 
-  @Column()
+  @Prop({ type: String })
   openAdjPrice: string;
 
-  @Column()
+  @Prop({ type: String })
   floorPrice: string;
 
-  @Column()
+  @Prop({ type: String })
   lowerLimit: string;
 
-  @Column()
+  @Prop({ type: String })
   upperLimit: string;
 
-  @Column()
+  @Prop({ type: String })
   floorPriceBlockMarket: string; //!=============
 
-  @Column({ primary: true, type: 'date' })
+  @Prop({ type: Date, default: Date.now })
   // @PrimaryColumn({ type: 'date' })
   created_at: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  // @PrimaryColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  // @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  // // @PrimaryColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Prop({ type: Date, default: Date.now })
   updated_at: Date;
 
-  @BeforeInsert()
-  setPrimaryKey() {
-    this.created_at = new Date();
-  }
+  // @BeforeInsert()
+  // setPrimaryKey() {
+  //   this.created_at = new Date();
+  // }
 }
+
+export const Circuit_breaksSchema =
+  SchemaFactory.createForClass(Circuit_breaks);
+Circuit_breaksSchema.index({ created_at: 1, trade_code: 1 }, { unique: true }); //Making compund Unique Key...!!!
+// IdxSchema.index({ IDX_INDEX_ID: 1, IDX_DATE_TIME: 1 }, { unique: true });
