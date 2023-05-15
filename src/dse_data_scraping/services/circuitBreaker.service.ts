@@ -57,7 +57,7 @@ export class CircuitBreakerService {
           ordered: false,
         });
       } catch (error) {
-        console.log('Error');
+        console.log('Error in circuit_breaker_service');
       }
       //!==================================
 

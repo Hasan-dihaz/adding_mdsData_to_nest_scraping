@@ -85,7 +85,7 @@ export class CompanyService {
         ordered: false,
       });
     } catch (error) {
-      console.log('Error');
+      console.log('Error in company_service');
     }
     //!==================================
 

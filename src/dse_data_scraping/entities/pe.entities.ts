@@ -13,7 +13,9 @@ import { Document, Types } from 'mongoose';
 export type Price_earningsDocument = Price_earnings & Document;
 
 // @Entity()
-@Schema()
+@Schema({
+  timestamps: true, // Enables createdAt and updatedAt fields
+})
 export class Price_earnings {
   @Prop({ type: String })
   // @Column()
@@ -56,15 +58,15 @@ export class Price_earnings {
   // @Column({ type: 'date' })   // all types are working here
   // @CreateDateColumn()
 
-  @Prop({ type: Date, default: Date.now })
-  // @Column({ primary: true, type: 'date' })
-  // @PrimaryColumn({ type: 'date' })
-  created_at: Date;
+  // @Prop({ type: Date, default: Date.now })
+  // // @Column({ primary: true, type: 'date' })
+  // // @PrimaryColumn({ type: 'date' })
+  // created_at: Date;
 
-  @Prop({ type: Date, default: Date.now })
-  // @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  // @PrimaryColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updated_at: Date; //! not tested
+  // @Prop({ type: Date, default: Date.now })
+  // // @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  // // @PrimaryColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  // updated_at: Date; //! not tested
 
   // @BeforeInsert()
   // setPrimaryKey() {
@@ -76,7 +78,4 @@ export class Price_earnings {
 export const Price_earningsSchema =
   SchemaFactory.createForClass(Price_earnings);
 
-Price_earningsSchema.index(
-  { created_at: 1, company_code: 1 },
-  { unique: true },
-); //Making compund Unique Key...!!!
+Price_earningsSchema.index({ createdAt: 1, company_code: 1 }, { unique: true }); //Making compund Unique Key...!!!

@@ -13,7 +13,7 @@ import { config } from '../../../dbconfig/db.config';
 
 import { FieldPacket, RowDataPacket } from 'mysql2';
 @Injectable()
-export class MysqlService {
+export class MdsdataService {
   constructor(
     @InjectModel('idx') private idxModel: Model<IdxDocument>,
     @InjectModel('trd') private trdModel: Model<TrdDocument>,
@@ -35,12 +35,8 @@ export class MysqlService {
     //!....................................... Last data
     const LastDoc = await this.lastDataService.getLastData();
     //!....................................... Last data
-    let count = 0;
 
     mySqlTables.forEach(async (element) => {
-      count++;
-      console.log(count, ' Round ', element);
-
       if (
         element == 'mkistat' ||
         element == 'idx' ||
@@ -73,20 +69,6 @@ export class MysqlService {
           }
           // const [rows, fields] = connection.execute(`SELECT * FROM ${table}`);
 
-          //!========================================/////
-          // const promise = new Promise((resolve, reject) => {
-          //   connection.execute(
-          //     `SELECT * FROM ${table}`,
-          //     (err, rows, fields) => {
-          //       if (err) {
-          //         reject(err);
-          //       } else {
-          //         resolve([rows, fields]);
-          //       }
-          //     },
-          //   );
-          // });
-
           let promise: any;
           const mdsDataMigration = () => {
             // promise = connection.execute(`SELECT * FROM ${table}`);
@@ -101,22 +83,21 @@ export class MysqlService {
                   if (Object.keys(rows).length != 0) {
                     //Object.keys(results)... converts the result into an array....since...length is a method of array.
 
-                    console.time(`Writing_Time_to..${table}`);
+                    // console.time(`Writing_Time_to..${table}`);
                     // console.log('rows', rows);
 
                     try {
+                      console.log('Writing to Collection ', table);
+
                       await model.insertMany(rows, {
                         ordered: false,
                       });
                     } catch (error) {
                       console.log('Error');
                     }
-                    console.timeEnd(`Writing_Time_to..${table}`);
+                    // console.timeEnd(`Writing_Time_to..${table}`);
                     LastData = rows.pop()[SortOn].toLocaleString('sv-SE'); // "sv-SE" Converting date formate
-                    console.log(
-                      'LastData .......MKISTAT*******.....',
-                      LastData,
-                    );
+                    // console.log('LastData .....', LastData);
                     await this.lastDataService.setLastData({
                       [fieldName]: LastData,
                     }); //Saving last migrated data trace to DB.
@@ -128,28 +109,18 @@ export class MysqlService {
               )
               .catch((err) => {
                 // Handle error here
-                console.log('error', err);
+                console.log('error in mdsdata', err);
               });
-
-            //!========================================
           };
-          await mdsDataMigration();
+          mdsDataMigration();
         } catch (error) {
-          console.log('got Error');
+          console.log('got Error in mdsdata');
         }
       }
     });
 
-    //!===============================
+    //!---------------------------
     // connection.end();
     //!---------------------------
-    // await model.insertMany(rows, { ordered: false });
-    // //!---------------------------
-    // console.log(rows);
-    // // results.map((item) => {
-    // //   console.log('item', item);
-    // // });
-
-    // return rows;
   }
 }

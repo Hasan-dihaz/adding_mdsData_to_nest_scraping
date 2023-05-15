@@ -416,20 +416,20 @@ export default class PageService {
           await newPage.close();
         });
 
-      // const com = ['ACMEPL', 'AGRANINS', 'SJIBLPBOND', 'AAMRANET']; //TB10Y0126 TB10Y0126
+      const com = ['ACMEPL', 'AGRANINS', 'SJIBLPBOND', 'AAMRANET']; //TB10Y0126 TB10Y0126
 
-      for (link in companies) {
-        // for (link in com) {
+      // for (link in companies) {
+      for (link in com) {
         // let currentPageData: CreateCompanyDto = {};
         let currentPageData = new CreateCompanyDto();
         const regex = /TB[0-9]+Y[0-9]+/i;
-        const is_true = regex.test(companies[link].Code);
-        // const is_true = regex.test(com[link]);
+        // const is_true = regex.test(companies[link].Code);
+        const is_true = regex.test(com[link]);
         if (is_true) {
           continue;
         }
-        currentPageData = await pagePromise(companies[link].Code);
-        // currentPageData = await pagePromise(com[link]);
+        // currentPageData = await pagePromise(companies[link].Code);
+        currentPageData = await pagePromise(com[link]);
         //! ============================================= Database Insertion====================
         const result = await this.companyService.upsertCompanyEntity(
           currentPageData,

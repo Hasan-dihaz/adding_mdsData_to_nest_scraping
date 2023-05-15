@@ -9,17 +9,15 @@ export class LastDataService {
     @InjectModel('lastData') private lastDataModel: Model<LastDataDocument>,
   ) {}
 
-  //!=========================
-
   async setLastData(Doc) {
-    console.log('Set Value...', Doc);
+    // console.log('Set Value...', Doc);
 
     await this.lastDataModel.findOneAndUpdate(
       {},
       { $set: Doc },
       { upsert: true },
     );
-    console.log('Set Value...222', Doc);
+    // console.log('Set Value...222', Doc);
   }
 
   async getLastData() {
@@ -44,8 +42,4 @@ export class LastDataService {
     // console.log("LastData", lastDoc);
     return lastDoc;
   }
-  // getLastData();
-  //!=========================
 }
-
-// export { getLastData, setLastData };

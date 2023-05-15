@@ -12,7 +12,9 @@ import { Document, Types } from 'mongoose';
 export type CompaniesDocument = Companies & Document;
 
 // @Entity()
-@Schema()
+@Schema({
+  timestamps: true, // Enables createdAt and updatedAt fields
+})
 export class Companies {
   @Prop({ type: String, index: true, unique: true })
   // @Column()
@@ -119,13 +121,13 @@ export class Companies {
   @Prop({ type: JSON, nullable: true })
   eps_share: JSON;
 
-  // @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  @Prop({ type: Date })
-  updated_at: Date;
+  // // @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  // @Prop({ type: Date })
+  // updated_at: Date;
 
-  // @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  @Prop({ type: Date })
-  created_at: Date;
+  // // @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  // @Prop({ type: Date })
+  // created_at: Date;
 }
 
 export const CompaniesSchema = SchemaFactory.createForClass(Companies);

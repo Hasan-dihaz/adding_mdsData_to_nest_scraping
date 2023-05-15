@@ -8,13 +8,13 @@ import { mkistat, MkistatSchema } from './entities/mkistat.entities';
 import { man, ManSchema } from './entities/man.entities';
 import { lastData, LastDataSchema } from './entities/last_data';
 
-import { Main } from '../main';
+import { IndexProvider } from './index';
 
 // import { db1Config } from './Unsued/dbconfig/db1.config';
 import { Db1Repository } from './Unsued/repositories/db1.repository';
 import { Db2Repository } from './Unsued/repositories/db2.repository';
 
-import { MysqlService } from './services/mdsdata.service';
+import { MdsdataService } from './services/mdsdata.service';
 import { LastDataService } from './services/lastData.service';
 
 @Module({
@@ -44,8 +44,8 @@ import { LastDataService } from './services/lastData.service';
   ],
   controllers: [],
   providers: [
-    Main,
-    MysqlService,
+    IndexProvider,
+    MdsdataService,
     LastDataService,
     Db1Repository,
     Db2Repository,

@@ -63,7 +63,7 @@ export class PeService {
           ordered: false,
         });
       } catch (error) {
-        console.log('Error');
+        console.log('Error in pe_service');
       }
       //!==================================
 
