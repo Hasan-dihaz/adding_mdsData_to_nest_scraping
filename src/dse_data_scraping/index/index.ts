@@ -16,7 +16,7 @@ export default class IndexProvider {
 
   //Start the browser and create a browser instance
 
-  @Cron('0 10 * * 0-4') // Runs everyday at 10 am from sunday to thursday.
+  @Cron('20 9 * * 0-4') // Runs everyday at 9.20 am from sunday to thursday.
   // @Cron('*/20 * * * * *') // Starts everyday at 9.30 am from sunday to thursday and repeats after every 5 minutes.
   async Company_info() {
     console.log('Cron Started in DSE scraping');
