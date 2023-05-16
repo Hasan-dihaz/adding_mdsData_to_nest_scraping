@@ -443,6 +443,7 @@ export default class PageService {
         // scrapedData.push(currentPageData);
       }
       console.log('Scraping company info done...!!!');
+      await browser.close(); //Closing browser instance
     };
     const data = await scrapeCurrentPage();
     // console.log('data...', data);

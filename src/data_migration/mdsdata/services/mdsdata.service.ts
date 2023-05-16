@@ -87,7 +87,12 @@ export class MdsdataService {
                     // console.log('rows', rows);
 
                     try {
-                      console.log('Writing to Collection ', table);
+                      console.log(
+                        'Writing to Collection ',
+                        table,
+                        ' ',
+                        new Date().toLocaleString('sv-SE'),
+                      );
 
                       await model.insertMany(rows, {
                         ordered: false,
@@ -103,7 +108,12 @@ export class MdsdataService {
                     }); //Saving last migrated data trace to DB.
                     mdsDataMigration(); // Repeatative function Calling...
                   } else {
-                    console.log('Task Completed...For', table);
+                    console.log(
+                      'Task Completed...For',
+                      table,
+                      ' at ',
+                      new Date().toLocaleString('sv-SE'),
+                    );
                   }
                 },
               )

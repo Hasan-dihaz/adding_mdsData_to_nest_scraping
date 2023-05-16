@@ -77,9 +77,10 @@ export default class PeScrap {
           return result;
         },
       );
-      // await page.close();
+      // await page.close(); //Closing current page
+      await browser.close(); //Closing browser instance
 
-      //   //! Database insertion'''''''''''''''''''
+      //! Database insertion'''''''''''''''''''
 
       await this.peService.upsertPeEntity(price_earnings_scrap);
       console.log('Scraping Price Earning done...!!!');

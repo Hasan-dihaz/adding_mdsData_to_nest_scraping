@@ -16,8 +16,9 @@ export default class IndexProvider {
 
   //Start the browser and create a browser instance
 
-  @Cron('30/5 9-14 * * 0-4') // Starts everyday at 9.30 am from sunday to thursday and repeats after every 5 minutes.
-  async func() {
+  @Cron('0 10 * * 0-4') // Runs everyday at 10 am from sunday to thursday.
+  // @Cron('*/20 * * * * *') // Starts everyday at 9.30 am from sunday to thursday and repeats after every 5 minutes.
+  async Company_info() {
     console.log('Cron Started in DSE scraping');
     const browserInstance = this.browserObject.startBrowser();
     // Pass the browser instance to the scraper controller
@@ -26,7 +27,8 @@ export default class IndexProvider {
     // this.circuitBreakerController.scrapeAll(browserInstance);
   }
 
-  // @Cron('0 10 * * 0-4') // Runs everyday at 10 am from sunday to thursday.
+  @Cron('30/5 9-15 * * 0-4') // Starts everyday at 9.30 am from sunday to thursday and repeats after every 5 minutes.
+  // @Cron('*/15 * * * * *')
   async Price_earnings() {
     console.log('Cron Started in DSE scraping');
     const browserInstance = this.browserObject.startBrowser();
@@ -35,7 +37,8 @@ export default class IndexProvider {
     this.peController.scrapeAll(browserInstance);
   }
 
-  // @Cron('30/5 9-14 * * 0-4') // Starts everyday at 9.30 am from sunday to thursday and repeats after every 5 minutes.
+  @Cron('30/5 9-15 * * 0-4') // Starts everyday at 9.30 am from sunday to thursday and repeats after every 5 minutes.
+  // @Cron('*/25 * * * * *')
   async Circuit_breaker() {
     console.log('Cron Started in DSE scraping');
     const browserInstance = this.browserObject.startBrowser();

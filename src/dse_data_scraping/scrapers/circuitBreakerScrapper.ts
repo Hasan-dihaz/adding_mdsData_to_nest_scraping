@@ -65,9 +65,11 @@ export default class CircuitBreakerScraper {
                   .nextElementSibling.nextElementSibling.textContent,
             };
           });
+          // await page.close();
           return result;
         },
       );
+      await browser.close(); //Closing the browser Instance.
       const is_created =
         await this.circuitBreakerService.upsertCircuitBreakerEntity(
           circuit_breaker,

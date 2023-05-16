@@ -59,9 +59,23 @@ export class PeService {
       //!==================================
 
       try {
-        await this.price_earningsModel.insertMany(pe, {
-          ordered: false,
-        });
+        // await this.price_earningsModel.insertMany(pe, {
+        //   ordered: false,
+        // });
+
+        await this.price_earningsModel.updateOne(
+          {
+            company_code: company_code,
+            updatedAt: {
+              $gte: new Date().setHours(9, 30, 0, 0), // Set the start time to 9:30 AM
+              $lt: new Date().setHours(15, 0, 0, 0), // Set the end time to 3:00 PM
+            },
+          },
+          {
+            $set: pe,
+          },
+          { upsert: true },
+        );
       } catch (error) {
         console.log('Error in pe_service');
       }

@@ -81,9 +81,17 @@ export class CompanyService {
     //!==================================
 
     try {
-      await this.companiesModel.insertMany(company, {
-        ordered: false,
-      });
+      // await this.companiesModel.insertMany(company, {
+      //   ordered: false,
+      // });
+
+      await this.companiesModel.updateOne(
+        { code: company.code },
+        {
+          $set: company,
+        },
+        { upsert: true },
+      );
     } catch (error) {
       console.log('Error in company_service');
     }

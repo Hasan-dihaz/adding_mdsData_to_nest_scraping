@@ -53,11 +53,25 @@ export class CircuitBreakerService {
       //!==================================
 
       try {
-        await this.circuit_breaksModel.insertMany(circuitBreaker, {
-          ordered: false,
-        });
+        // await this.circuit_breaksModel.insertMany(circuitBreaker, {
+        //   ordered: false,
+        // });
+
+        await this.circuit_breaksModel.updateOne(
+          {
+            trade_code: trade_code,
+            updatedAt: {
+              $gte: new Date().setHours(9, 30, 0, 0), // Set the start time to 9:30 AM
+              $lt: new Date().setHours(15, 0, 0, 0), // Set the end time to 3:00 PM
+            },
+          },
+          {
+            $set: circuitBreaker,
+          },
+          { upsert: true },
+        );
       } catch (error) {
-        console.log('Error in circuit_breaker_service');
+        console.log('Error in circuit_breaker_service', error);
       }
       //!==================================
 
