@@ -33,7 +33,10 @@ import { LastDataService } from './services/lastData.service';
     //   //!if enabled every time run the app will try to create table using registerd entity (runs migration automatically).
     // }),
     // TypeOrmModule.forFeature([idx, man, trd, mkistat]), //to use typeORM Repository on entities
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/book_nest'),
+    // MongooseModule.forRoot('mongodb://127.0.0.1:27017/book_nest'),
+    MongooseModule.forRoot(
+      'mongodb://admin:dseMngDb4tP!@89.117.36.92:27017/dse_exp?authMechanism=DEFAULT',
+    ),
     MongooseModule.forFeature([
       { name: idx.name, schema: IdxSchema },
       { name: trd.name, schema: TrdSchema },

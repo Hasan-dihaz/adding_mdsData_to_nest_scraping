@@ -12,9 +12,9 @@ import PageScraper from './scrapers/codeNameScraper';
 import PeScraper from './scrapers/peScrapar';
 import CircuitBreakerScrapper from './scrapers/circuitBreakerScrapper';
 
-import { CompanyService } from '../dse_data_scraping/services/company.service';
-import { PeService } from '../dse_data_scraping/services/pe.service';
-import { CircuitBreakerService } from '../dse_data_scraping/services/circuitBreaker.service';
+import { CompanyService } from './services/company.service';
+import { PeService } from './services/pe.service';
+import { CircuitBreakerService } from './services/circuitBreaker.service';
 
 // import { Companies } from './entities/company.entities';
 // import { Price_earnings } from './entities/pe.entities';
@@ -44,7 +44,10 @@ import {
     // }),
     // TypeOrmModule.forFeature([Companies, Price_earnings, Circuit_breaks]), //to use typeORM Repository on entities
 
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/book_nest'),
+    // MongooseModule.forRoot('mongodb://127.0.0.1:27017/book_nest'),
+    MongooseModule.forRoot(
+      'mongodb://admin:dseMngDb4tP!@89.117.36.92:27017/dse_exp?authMechanism=DEFAULT',
+    ),
     MongooseModule.forFeature([
       { name: Price_earnings.name, schema: Price_earningsSchema },
       { name: Companies.name, schema: CompaniesSchema },

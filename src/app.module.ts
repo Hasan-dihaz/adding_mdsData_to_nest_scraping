@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ScheduleModule } from '@nestjs/schedule';
-import CompanyModule from './dse_data_scraping/company.module';
+import DataScrapingModule from './dse_data_scraping/dataScraping.module';
 import MdsDataModule from './data_migration/mdsdata/mdsdata.module';
 import { ConfigModule } from '@nestjs/config';
 // import { Index } from '';
@@ -15,7 +15,7 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     MdsDataModule,
-    CompanyModule,
+    DataScrapingModule,
     ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       envFilePath: ['.env'],
